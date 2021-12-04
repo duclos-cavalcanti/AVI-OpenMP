@@ -1,16 +1,20 @@
-import importlib.util ## to be able to load backend package from different folder source
+import importlib.util
+import sys
+import numpy as np
+import pickle
 
-spec = importlib.util.spec_from_file_location("*", "backend/backend_py.py") ## load python backend from backend folder
-b = importlib.util.module_from_spec(spec) ## import backend
-spec.loader.exec_module(b) ## import backend
+sys.path.append('backend')
 
-from backend import * ## import both backends
+import cpp_backend as backend
 
 def run():
-    i_py = backend_py.example_func(2)
-    i_cpp = backend.example_func(1)
+    i = backend.example_func(1)
+    print(f"C++ Backend: {i}")
 
-    print(f"Python backend: {i_py} and C++ Backend: {i_cpp}")
+    i = backend.example_func(10)
+    print(f"C++ Backend: {i}")
 
 if __name__ == "__main__":
     run()
+    with open(f"data/data_debug/parameters.pickle", "rb") as the_file:
+        parameters = pickle.load(the_file)
