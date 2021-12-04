@@ -1,8 +1,8 @@
 SHELL := /bin/bash
 FILE := $(lastword $(MAKEFILE_LIST))
 
+.PHONY: all
 all:
-	@echo "DUMMY"
 
 .PHONY: help
 help: 
@@ -15,13 +15,17 @@ help:
 
 .PHONY: clean
 clean:
-	@echo -e '\n** CLEANING PROJECT'
-	@rm -vrf include lib __pycache__
-	@rm -vf *.cpp
-	@rm -vf *.so
-	@rm -vf *.o
+	@echo -e '\n** CLEANING INTERFACE'
+	@rm -rf include lib __pycache__
+	@rm -f *.cpp
+	@rm -f *.so
+	@rm -f *.o
+	@${MAKE} -C backend/ clean
 
 
 .PHONY: build
 build:
-	${MAKE} -C backend/ build
+	@echo -e '\n** BUILDING INTERFACE'
+	@${MAKE} -C backend/ build
+	@echo -e '\n** compiling cpp-py interface...'
+	python3 compile.py

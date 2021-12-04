@@ -3,8 +3,8 @@ FILE := $(lastword $(MAKEFILE_LIST))
 
 isbuildEmpty = $(shell ls build/)
 
+.PHONY: all
 all:
-	@echo "DUMMY"
 
 .PHONY: help
 help: 
@@ -17,16 +17,17 @@ help:
 
 .PHONY: clean
 clean:
-	@echo -e '\n** CLEANING PROJECT'
+	@echo -e '\n** CLEANING BACKEND'
 	@if [ -n "$(call isbuildEmpty)" ]; then \
-		rm -rvf build/*; \
+		rm -rf build/*; \
 	fi
 	@touch build/.gitkeep
 
-
 .PHONY: build
 build: clean
-	@echo -e '\n** BUILDING PROJECT'
+	@echo -e '\n** BUILDING BACKEND'
 	cd build/ && cmake -DCMAKE_BUILD_TYPE=Release ..
-	$(MAKE) -C build/
-	$(MAKE) -C build/ install
+	@echo -e '\n** compiling backend...'
+	@$(MAKE) -C build/
+	@echo -e '\n**  installing library...'
+	@$(MAKE) -C build/ install

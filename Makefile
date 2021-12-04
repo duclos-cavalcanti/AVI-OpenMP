@@ -1,8 +1,9 @@
 SHELL := /bin/bash
 FILE := $(lastword $(MAKEFILE_LIST))
 
+.PHONY: all
 all:
-	@echo "DUMMY"
+
 
 .PHONY: help
 help: 
@@ -17,17 +18,20 @@ help:
 .PHONY: clean
 clean:
 	@echo -e '\n** CLEANING PROJECT'
-	@rm -vrf __pycache__
+	@rm -rf __pycache__
 	@${MAKE} -C backend/ clean
 
 .PHONY: build
 build:
+	@echo -e "\n** BUILDING PROJECT"
 	@${MAKE} -C backend/ build
 
 .PHONY: test
 test:
+	@echo -e '\n** TESTING PROJECT'
 	@python -m pytest tests/
 
 .PHONY: run
 run:
+	@echo -e '\n** RUNNING PROJECT'
 	@python main.py
