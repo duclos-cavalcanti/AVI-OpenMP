@@ -24,6 +24,10 @@ clean:
 build:
 	@${MAKE} -C backend/ build
 
+.PHONY: test
+test:
+	@python -m pytest tests/
+
 .PHONY: run
 run:
-	python main.py
+	@python main.py
