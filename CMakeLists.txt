@@ -63,6 +63,7 @@ endif()
 # extra cmake targets and scripts
 include(run)
 include(gdb)
+include(test)
 include(deliver)
 
 # clean target files
