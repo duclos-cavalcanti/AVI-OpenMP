@@ -14,7 +14,7 @@
 
 ### Arch-based Systems
 ```sh
-sudo pacman -S cmake
+sudo pacman -S cmake openmpi lapack lapacke
 pip install cffi pytest
 ```
 ### Debian-based Systems
