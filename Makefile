@@ -10,6 +10,7 @@ help:
 	$(info)
 	$(info Targets: )
 	$(info  * run           - Runs Python frontend)
+	$(info  * build         - Builds backend)
 	$(info  * clean       	- Cleans project)
 	@echo ""
 
@@ -19,6 +20,9 @@ clean:
 	@rm -vrf __pycache__
 	@${MAKE} -C backend/ clean
 
+.PHONY: build
+build:
+	@${MAKE} -C backend/ build
 
 .PHONY: run
 run:
