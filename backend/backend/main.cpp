@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
     const unsigned int nS = 125;
     const unsigned int nA = 4;
 
-    asyncValueIteration(v.data(), pi.data(), values.data(), rows.data(), row_pointer.data(), 290, 125, 500, n_stars, nS, nA);
+    asyncValueIterationWrapper(v.data(), pi.data(), values.data(), rows.data(), row_pointer.data(), 290, 125, 500, n_stars, nS, nA);
 
     std::cout << "FINISHED CPP_BACKEND" << std::endl;
 
