@@ -9,4 +9,4 @@ __pycache__/*
 
 *.so
 *.o
-*.cpp
+cpp_interface.cpp
