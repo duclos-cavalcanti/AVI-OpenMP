@@ -1,21 +1,21 @@
 #ifndef _INTERFACE_BACKEND_CPP_H
 #define _INTERFACE_BACKEND_CPP_H
 
-#include "main.h"
+#include "backend.h"
 
 extern "C"
 {
-  extern void async_value_iteration(float* V, int* PI, float* values, 
+  extern void async_value_iteration(float* val_arr, int* policy_arr, float* values, 
                                     int* row_indices, int* rowptr, 
-                                    const unsigned int nnz, const unsigned int cols, 
-                                    const unsigned int rows, const unsigned int n_stars, 
-                                    const unsigned int nS, const unsigned int nA)
+                                    const unsigned int nr_nonzero, const unsigned int nr_cols, 
+                                    const unsigned int nr_rows, const unsigned int nr_stars, 
+                                    const unsigned int nr_states, const unsigned int nr_actions)
   {
-    asyncValueIterationWrapper(V, PI, values, 
+    asyncValueIterationWrapper(val_arr, policy_arr, values, 
                                row_indices, rowptr, 
-                               nnz, cols, 
-                               rows, n_stars, 
-                               nS, nA);
+                               nr_nonzero, nr_cols, 
+                               nr_rows, nr_stars, 
+                               nr_states, nr_actions);
   }
 }
 

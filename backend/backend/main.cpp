@@ -9,7 +9,7 @@
 #include "Eigen/Dense"
 #include <omp.h>
 
-#include "main.h"
+#include "backend.h"
 
 int main(int argc, char *argv[])
 {
@@ -21,13 +21,11 @@ int main(int argc, char *argv[])
     std::vector<float> v(125, 0);
     std::vector<int> pi(125, 0);
 
-    const unsigned int n_stars = 5;
-    const unsigned int nS = 125;
-    const unsigned int nA = 4;
+    const unsigned int nr_stars = 5;
+    const unsigned int nr_states = 125;
+    const unsigned int nr_actions = 4;
 
-    asyncValueIterationWrapper(v.data(), pi.data(), values.data(), rows.data(), row_pointer.data(), 290, 125, 500, n_stars, nS, nA);
-
-    std::cout << "FINISHED CPP_BACKEND" << std::endl;
+    asyncValueIterationWrapper(v.data(), pi.data(), values.data(), rows.data(), row_pointer.data(), 290, 125, 500, nr_stars, nr_states, nr_actions);
 
     return 0;
 }
