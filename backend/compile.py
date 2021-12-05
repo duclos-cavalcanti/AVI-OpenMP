@@ -5,7 +5,7 @@ from cffi import FFI
 
 def compile_interface(verbose:bool = True) -> object:
   ffi = FFI()
-  ffi.cdef("""void asyncValueIteration(float* V, int* PI, float* values, int* row_indices, int* rowptr, const unsigned int nnz, const unsigned int cols, const unsigned int rows, const unsigned int n_stars, const unsigned int nS, const unsigned int nA);""")
+  ffi.cdef("""void async_value_iteration(float* V, int* PI, float* values, int* row_indices, int* rowptr, const unsigned int nnz, const unsigned int cols, const unsigned int rows, const unsigned int n_stars, const unsigned int nS, const unsigned int nA);""")
 
   ffi.set_source("cpp_interface",
                  """ #include "interface.h" """,
