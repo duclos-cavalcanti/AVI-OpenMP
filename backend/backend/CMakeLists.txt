@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
 project(CPP_BACKEND)
 
-set (LIBRARY_NAME cpp_backend_lib)
+set (LIBRARY_NAME backend)
 set (BACKEND_DIR ${PROJECT_SOURCE_DIR}/../)
 add_subdirectory(lib) # builds lib project
 
@@ -26,14 +26,13 @@ set(CMAKE_CXX_FLAGS_RELEASE
 set(CMAKE_EXE_LINKER_FLAGS  
     "${CMAKE_EXE_LINKER_FLAGS}")
 
-file(GLOB SOURCES "src/*.cpp")
+set(SOURCES "main.cpp")
 
 set(PROJECT_SOURCES
     ${SOURCES} 
 )
 
 set(PROJECT_INCLUDES
-    # ${PROJECT_SOURCE_DIR}/include/
     ${PROJECT_SOURCE_DIR}/lib/include
 )
 
