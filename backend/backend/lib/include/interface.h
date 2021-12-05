@@ -1,13 +1,21 @@
 #ifndef _INTERFACE_BACKEND_CPP_H
 #define _INTERFACE_BACKEND_CPP_H
 
-#include "example.h"
+#include "main.h"
 
 extern "C"
 {
-  extern int cffi_example(int i)
+  extern void async_value_iteration(float* V, int* PI, float* values, 
+                                    int* row_indices, int* rowptr, 
+                                    const unsigned int nnz, const unsigned int cols, 
+                                    const unsigned int rows, const unsigned int n_stars, 
+                                    const unsigned int nS, const unsigned int nA)
   {
-    return example_func(i);
+    asyncValueIterationWrapper(V, PI, values, 
+                               row_indices, rowptr, 
+                               nnz, cols, 
+                               rows, n_stars, 
+                               nS, nA);
   }
 }
 

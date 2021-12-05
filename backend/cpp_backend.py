@@ -6,7 +6,7 @@ try:
   import cpp_interface
 
 except (ModuleNotFoundError, ImportError) as e:
-  print(f"Importing of Backend failed.\nReason:\n{e}\n")
+  print(f"Importing of Backend failed:\n{e}\n")
   raise
 
 #########################
