@@ -47,7 +47,7 @@ send:
 .PHONY: get
 get:
 	@echo -e '\n** GETTING PLOT FROM SERVER'
-	@rm -f plot_server.png
+	@rm -vf plot_server.png
 	@scp ga74ped@hpc05.clients.eikon.tum.de:~/Documents/${FOLDER}/plot.png ./plot_server.png
 	@sxiv plot_server.png
 
