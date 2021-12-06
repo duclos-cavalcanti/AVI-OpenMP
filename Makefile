@@ -49,8 +49,14 @@ get:
 	@echo -e '\n** GETTING PLOT FROM SERVER'
 	@rm -f plot_server.png
 	@scp ga74ped@hpc05.clients.eikon.tum.de:~/Documents/${FOLDER}/plot.png ./plot_server.png
+	@sxiv plot_server.png
 
 .PHONY: run
 run:
 	@echo -e '\n** RUNNING PROJECT'
 	@python main.py
+
+.PHONY: img
+img:
+	@echo -e '\n** Viewing Plot'
+	@sxiv plot.png
