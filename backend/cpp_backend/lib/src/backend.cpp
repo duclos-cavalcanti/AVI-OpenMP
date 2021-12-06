@@ -109,7 +109,7 @@ inline void getStateCost(float& cost, int& state, int& control, const unsigned i
 
 inline void countActions(int& actions, const int nr_actions, SparseMat state_probs) {
   for (unsigned int i = 0; i < nr_actions; i++) {
-      if (state_probs.row(i).sum() > 0) // action > 0, it exists
+      if (state_probs.row(i).sum() > 0) // val > 0, action exists
           actions += 1;
   }
 }
