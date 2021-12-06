@@ -11,7 +11,7 @@ import data_demo as data
 import graph
 
 # change to choose between datasets: debug, small, normal
-DATASET="debug"
+DATASET="small"
 
 def plot(probabilities, values_result, policies_result, max_fuel, nr_stars, nr_actions):
     random_state = data.state_from_tuple(max_fuel - 1, nr_stars - 1, 0, nr_stars)
