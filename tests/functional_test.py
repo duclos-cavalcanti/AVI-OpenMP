@@ -30,7 +30,7 @@ def test_debug_data():
     values_result, policies_result = backend.async_value_iteration(V.copy(), PI.copy(), values, indices, indptr, shape, n_stars, nS, nA)
     values_golden, policies_golden = utils.load_results("data/data_debug")
 
-    assert values_result.all() == values_golden.all(), "Values do not match golden values"
-    assert policies_result.all() == policies_golden.all(), "Results do not match golden results"
+    assert values_result.all() == values_golden.all(), "Values do not match golden debug values"
+    assert policies_result.all() == policies_golden.all(), "Results do not match golden debug results"
 
     return
