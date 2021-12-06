@@ -36,6 +36,7 @@ test:
 pack: clean
 	@echo -e '\n** ARCHIVING PROJECT'
 	@zip -r archive.zip ../${FOLDER}
+	@zip -d archive.zip *.git/* *.git
 
 .PHONY: send
 send:
