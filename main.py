@@ -5,46 +5,39 @@ import scipy.sparse
 from matplotlib import pyplot as plt
 
 sys.path.append('backend')
-sys.path.append('utils')
 
 import cpp_backend as backend
-import utils
-import data
+import data_demo as data
 import graph
 
-def plot():
+# change to choose between datasets: debug, small, normal
+DATASET="debug"
+
+def plot(probabilities, values_result, policies_result, max_fuel, nr_stars, nr_actions):
+    random_state = data.state_from_tuple(max_fuel - 1, nr_stars - 1, 0, nr_stars)
+    star_graph, stars, star_types = data.load_star_values(f"data/data_{DATASET}")
+    fuel, goal_star, cur_star = data.state_to_tuple(random_state, nr_stars)
+
+    a_path = graph.a_star(cur_star, goal_star, star_graph, stars)
+    pi_path = data.travel(random_state, probabilities, policies_result, nr_stars, nr_actions)
+
+    data.plot_full_graph(star_graph, stars, star_types, (a_path, "orange"), (pi_path, "red"))
+    plt.savefig("plot.png")
 
     return
 
 def run():
-    star_values, star_indices, star_indptr, star_shape = utils.load_matrix("data/data_debug", "star_graph")
-    values, indices, indptr, shape = utils.load_matrix("data/data_debug", "P")
-    parameters = utils.load_parameters("data/data_debug/parameters.pickle")
+    values, indices, indptr, shape = data.load_sparse_matrix(f"data/data_{DATASET}", "P")
+    max_fuel, nr_states, nr_actions, nr_stars = data.load_parameters(f"data/data_{DATASET}/parameters.pickle")
 
-    max_fuel = parameters["fuel_capacity"]
-    nS, nA = parameters["NS"], parameters["max_controls"]
-    n_stars = parameters["number_stars"]
+    value_arr = np.zeros(nr_states).astype(np.float32)
+    policy_arr = np.zeros(nr_states).astype(np.int32)
 
-    V = np.zeros(nS).astype(np.float32)
-    PI = np.zeros(nS).astype(np.int32)
+    values_result, policies_result = backend.async_value_iteration(value_arr.copy(), policy_arr.copy(), values, indices, indptr, shape, nr_stars, nr_states, nr_actions)
 
-    values_result, policies_result = backend.async_value_iteration(V.copy(), PI.copy(), values, indices, indptr, shape, n_stars, nS, nA)
+    plot(data.to_sparse_matrix(values, indices, indptr, shape), values_result, policies_result, max_fuel, nr_stars, nr_actions)
 
-    P = scipy.sparse.csr_matrix((values, indices, indptr), shape=shape, dtype=values.dtype)
-    star_graph = scipy.sparse.csr_matrix((star_values, star_indices, star_indptr), shape=star_shape, dtype=star_values.dtype)
-    stars = np.load("data/data_debug/stars.npy")
-    star_types = np.load("data/data_debug/star_types.npy")
-    random_state = data.state_from_tuple(max_fuel - 1, n_stars - 1, 0, n_stars)
-
-    fuel = random_state // (n_stars * n_stars)
-    goal_star = random_state % (n_stars * n_stars) // n_stars
-    cur_star = random_state % (n_stars * n_stars) % n_stars
-
-    a_path = graph.a_star(cur_star, goal_star, star_graph, stars)
-    pi_path = data.travel(random_state, P, policies_result, n_stars, nA)
-    data.plot_full_graph(star_graph, stars, star_types, (a_path, "orange"), (pi_path, "red"))
-    plt.show()
-
+    return
 
 if __name__ == "__main__":
     run()
