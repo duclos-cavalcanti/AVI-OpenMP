@@ -4,7 +4,7 @@
 #include <chrono>
 
 void asyncValueIteration(Eigen::Map<Eigen::VectorXf> V, Eigen::Map<Eigen::VectorXi> PI, Eigen::Map<SparseMat> probabilities, const unsigned int n_stars, const unsigned int nS, const unsigned int nA);
-void getStateCost(float& cost, int& state, int& control, const unsigned int& nr_stars);
+inline void getStateCost(float& cost, int& state, int& control, const unsigned int& nr_stars);
 inline void countActions(int& actions, const int nr_actions, SparseMat middle_rows);
 Eigen::VectorXf getActionValues(Eigen::Ref<SparseMat> probabilities, Eigen::Ref<Eigen::Map<Eigen::VectorXf>> values, int current_state, const unsigned int& nr_actions, const unsigned int& nr_stars, const float& alpha);
 
@@ -71,25 +71,22 @@ Eigen::VectorXf getActionValues(Eigen::Ref<SparseMat> probabilities,
 
   #pragma omp parallel for
   for (int row = 0; row < probabilities_slice.outerSize(); ++row) {
-    for (int col = 0; col < probabilities_slice.innerSize(); ++col) {
+    for (SparseMat::InnerIterator it(probabilities_slice, row); it; ++it) {
       float cost;
-      float probability = probabilities_slice.coeffRef(row, col);
-
-      if (probability > 0.0) {
-        int next_state = col;
-        int current_action = row;
-        getStateCost(cost, current_state, current_action, nr_stars);
-        action_values[current_action] += probability * (cost + alpha * values[next_state]);
+      float probability = it.value();
+      int next_state = it.col();
+      int current_action = it.row();
+      getStateCost(cost, current_state, current_action, nr_stars);
+      action_values[current_action] += probability * (cost + alpha * values[next_state]);
       }
     }
-  }
 
   return action_values;
 }
 
 // calculates cost attributed to a given state and a given action
 // stores directly in cost pointer
-void getStateCost(float& cost, int& state, int& control, const unsigned int& nr_stars) {
+inline void getStateCost(float& cost, int& state, int& control, const unsigned int& nr_stars) {
     state_vector_t state_vector;
     int fuel, goal_star, current_star;
     
