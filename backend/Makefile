@@ -20,12 +20,12 @@ clean:
 	@rm -f *.cpp
 	@rm -f *.so
 	@rm -f *.o
-	@${MAKE} -C backend/ clean
+	@${MAKE} -C cpp_backend/ clean
 
 
 .PHONY: build
 build:
 	@echo -e '\n** BUILDING INTERFACE'
-	@${MAKE} -C backend/ build
+	@${MAKE} -C cpp_backend/ build
 	@echo -e '\n** compiling cpp-py interface...'
 	python3 compile.py
