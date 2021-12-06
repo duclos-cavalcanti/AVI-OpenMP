@@ -29,9 +29,4 @@ def test_debug_data():
     assert values_result.all() == values_golden.all(), "Values do not match golden debug values"
     assert policies_result.all() == policies_golden.all(), "Results do not match golden debug results"
 
-    print(values_result)
-    print(values_golden)
-    print(policies_result)
-    print(policies_golden)
-
     return
