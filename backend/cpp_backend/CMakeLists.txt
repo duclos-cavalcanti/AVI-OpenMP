@@ -20,7 +20,7 @@ set(CMAKE_CXX_FLAGS
     )
 
 set(CMAKE_CXX_FLAGS_RELEASE 
-    "-O3 -march=native -ffast-math -fopenmp"
+    "-O3 -ffast-math -fopenmp"
     )
 
 set(CMAKE_EXE_LINKER_FLAGS  
