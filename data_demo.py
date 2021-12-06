@@ -148,10 +148,10 @@ def load_star_values(path:str) -> (np.array, np.array):
 def load_results(path:str) -> (np.array, np.array):
     '''
     '''
-    V = np.load(f"{path}/J_star_alpha_0_99.npy")
-    PI = np.load(f"{path}/pi_star_alpha_0_99.npy")
+    values = np.load(f"{path}/J_star_alpha_0_99.npy")
+    policies = np.load(f"{path}/pi_star_alpha_0_99.npy")
 
-    return (V, PI)
+    return (values, policies)
 
 
 def to_sparse_matrix(data, indices, indptr, shape):
