@@ -33,7 +33,7 @@ test:
 	@python -m pytest tests/
 
 .PHONY: pack
-pack:
+pack: clean
 	@echo -e '\n** ARCHIVING PROJECT'
 	@zip -r archive.zip ../${FOLDER}
 
@@ -43,9 +43,9 @@ send:
 	@scp archive.zip ga74ped@hpc05.clients.eikon.tum.de:~/Documents
 
 .PHONY: get
-send:
-	@echo -e '\n** SENDING PROJECT'
-	@scp ga74ped@hpc05.clients.eikon.tum.de:~/Documents/${FOLDER}
+get:
+	@echo -e '\n** GETTING PLOT FROM SERVER'
+	@scp ga74ped@hpc05.clients.eikon.tum.de:~/Documents/${FOLDER}/plot.png ./plot_server.png
 
 .PHONY: run
 run:
