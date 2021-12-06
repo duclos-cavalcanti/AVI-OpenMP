@@ -33,13 +33,19 @@ test:
 	@python -m pytest tests/
 
 .PHONY: pack
-pack: archive.zip
+pack:
 	@echo -e '\n** ARCHIVING PROJECT'
 	@zip -r archive.zip ../${FOLDER}
 
 .PHONY: send
-send: pack
+send:
 	@echo -e '\n** SENDING PROJECT'
+	@scp archive.zip ga74ped@hpc05.clients.eikon.tum.de:~/Documents
+
+.PHONY: get
+send:
+	@echo -e '\n** SENDING PROJECT'
+	@scp ga74ped@hpc05.clients.eikon.tum.de:~/Documents/${FOLDER}
 
 .PHONY: run
 run:
