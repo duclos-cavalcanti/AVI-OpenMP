@@ -16,11 +16,11 @@ endif()
 
 set(CMAKE_CXX_FLAGS 
     ${CMAKE_CXX_FLAGS} 
-    "-g -Wall -O0"
+    "-Wall -O0"
     )
 
 set(CMAKE_CXX_FLAGS_RELEASE 
-    "-O3 -ffast-math -fopenmp"
+    "-ffast-math -fopenmp"
     )
 
 set(CMAKE_EXE_LINKER_FLAGS  
