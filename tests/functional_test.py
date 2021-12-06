@@ -4,10 +4,9 @@ import numpy as np
 import pickle
 
 sys.path.append('backend')
-sys.path.append('utils')
 
 import cpp_backend as backend
-import utils
+import data_demo as data
 
 
 def test_debug_data():
@@ -18,19 +17,21 @@ def test_debug_data():
 
     @return:  Description
     """
-    values, indices, indptr, shape = utils.load_matrix("data/data_debug", "P")
-    parameters = utils.load_parameters("data/data_debug/parameters.pickle")
+    values, indices, indptr, shape = data.load_sparse_matrix("data/data_debug", "P")
+    max_fuel, nr_states, nr_actions, nr_stars = data.load_parameters("data/data_debug/parameters.pickle")
 
-    nS, nA = parameters["NS"], parameters["max_controls"]
-    n_stars = parameters["number_stars"]
+    value_arr = np.zeros(nr_states).astype(np.float32)
+    policy_arr = np.zeros(nr_states).astype(np.int32)
 
-    V = np.zeros(nS).astype(np.float32)
-    PI = np.zeros(nS).astype(np.int32)
-
-    values_result, policies_result = backend.async_value_iteration(V.copy(), PI.copy(), values, indices, indptr, shape, n_stars, nS, nA)
-    values_golden, policies_golden = utils.load_results("data/data_debug")
+    values_result, policies_result = backend.async_value_iteration(value_arr.copy(), policy_arr.copy(), values, indices, indptr, shape, nr_stars, nr_states, nr_actions)
+    values_golden, policies_golden = data.load_results("data/data_debug")
 
     assert values_result.all() == values_golden.all(), "Values do not match golden debug values"
     assert policies_result.all() == policies_golden.all(), "Results do not match golden debug results"
+
+    print(values_result)
+    print(values_golden)
+    print(policies_result)
+    print(policies_golden)
 
     return
