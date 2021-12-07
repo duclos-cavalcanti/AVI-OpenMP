@@ -37,14 +37,14 @@ pack: clean
 	@echo -e '\n** ARCHIVING PROJECT'
 	@rm -vf archive.zip
 	@zip -r archive.zip ../${FOLDER}
-	@zip -d archive.zip *.git/* *.git
-	@zip -d archive.zip .gitignore
+	@zip -d archive.zip *.git/* *.git *.gitignore
 
 .PHONY: deliver
 deliver: pack
 	@echo -e '\n** PREPARING PROJECT FOR DELIVERY'
 	@zip -d archive.zip *data_debug/* *data_debug
 	@zip -d archive.zip *data_small/* *data_small
+	@zip -d archive.zip *cache/* *cache
 
 .PHONY: send
 send:
