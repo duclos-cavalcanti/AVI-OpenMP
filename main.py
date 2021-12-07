@@ -1,6 +1,7 @@
 import sys
 import numpy as np
 import pickle
+import datetime
 import scipy.sparse
 from matplotlib import pyplot as plt
 
@@ -27,6 +28,7 @@ def plot(probabilities, values_result, policies_result, max_fuel, nr_stars, nr_a
     return
 
 def run():
+    start = datetime.datetime.now()
     print("Loading Data...")
     values, indices, indptr, shape = data.load_sparse_matrix(f"data/data_{DATASET}", "P")
     max_fuel, nr_states, nr_actions, nr_stars = data.load_parameters(f"data/data_{DATASET}/parameters.pickle")
@@ -39,6 +41,9 @@ def run():
 
     print("Plotting...")
     plot(data.to_sparse_matrix(values, indices, indptr, shape), values_result, policies_result, max_fuel, nr_stars, nr_actions)
+
+    end = datetime.datetime.now()
+    print(f"Total Time of Execution: {end - start}")
 
     return
 
