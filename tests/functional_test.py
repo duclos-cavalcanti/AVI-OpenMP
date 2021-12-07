@@ -31,7 +31,7 @@ def test_debug_data():
     assert policies_result.all() == policies_golden.all(), "Results do not match golden debug results"
 
     random_state = data.state_from_tuple(max_fuel - 1, nr_stars - 1, 0, nr_stars)
-    star_graph, stars, star_types = data.load_star_values(f"data/data_small")
+    star_graph, stars, star_types = data.load_star_values(f"data/data_debug")
     fuel, goal_star, cur_star = data.state_to_tuple(random_state, nr_stars)
 
     a_path = graph.a_star(cur_star, goal_star, star_graph, stars)
