@@ -1,7 +1,6 @@
 #include "backend.h"
 #include <iostream>
 #include <cmath>
-#include <chrono>
 
 void asyncValueIteration(Eigen::Map<Eigen::VectorXf> V, Eigen::Map<Eigen::VectorXi> PI, Eigen::Map<SparseMat> probabilities, const unsigned int n_stars, const unsigned int nS, const unsigned int nA);
 inline void getStateCost(float& cost, int& state, int& control, const unsigned int& nr_stars);
@@ -27,10 +26,9 @@ void asyncValueIteration(Eigen::Map<Eigen::VectorXf> values,
                          const unsigned int nr_stars, const unsigned int nr_states, 
                          const unsigned int nr_actions) {
 
-    auto start = std::chrono::system_clock::now();
-    omp_set_num_threads(4);
+    omp_set_num_threads(8);
 
-    const double tolerance = 1e-6;
+    const double tolerance = 1e-5;
     const float alpha = 0.99;
     float delta;
     unsigned int epochs = 0;
@@ -51,8 +49,6 @@ void asyncValueIteration(Eigen::Map<Eigen::VectorXf> values,
       }
       epochs += 1;
     } while (delta >= tolerance);
-
-    auto end = std::chrono::system_clock::now();
 }
 
 Eigen::VectorXf getActionValues(Eigen::Ref<SparseMat> probabilities, 
@@ -108,6 +104,7 @@ inline void getStateCost(float& cost, int& state, int& control, const unsigned i
   }
 
 inline void countActions(int& actions, const int nr_actions, SparseMat state_probs) {
+  #pragma omp parallel for
   for (unsigned int i = 0; i < nr_actions; i++) {
       if (state_probs.row(i).sum() > 0) // val > 0, action exists
           actions += 1;
