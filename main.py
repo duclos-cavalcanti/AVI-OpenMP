@@ -43,7 +43,7 @@ def run():
     plot(data.to_sparse_matrix(values, indices, indptr, shape), values_result, policies_result, max_fuel, nr_stars, nr_actions)
 
     end = datetime.datetime.now()
-    print(f"Total Time of Execution: {end - start}")
+    print(f"\nTotal Time of Execution: {end - start}")
 
     return
 
