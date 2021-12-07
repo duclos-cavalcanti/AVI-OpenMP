@@ -23,8 +23,8 @@ clean:
 	fi
 	@touch build/.gitkeep
 
-.PHONY: build
-build: clean
+.PHONY: compile
+compile: clean
 	@echo -e '\n** COMPILING BACKEND'
 	cd build/ && cmake -DCMAKE_BUILD_TYPE=Release ..
 	@echo -e '\n** compiling backend...'

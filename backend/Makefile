@@ -23,9 +23,9 @@ clean:
 	@${MAKE} -C cpp_backend/ clean
 
 
-.PHONY: build
-build: clean
+.PHONY: compile
+compile: clean
 	@echo -e '\n** COMPILING INTERFACE'
-	@${MAKE} -C cpp_backend/ build
+	@${MAKE} -C cpp_backend/ compile
 	@echo -e '\n** compiling cpp-py interface...'
 	python3 compile.py

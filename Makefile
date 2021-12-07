@@ -25,7 +25,7 @@ clean:
 .PHONY: compile
 compile:
 	@echo -e "\n** COMPILING PROJECT"
-	@${MAKE} -C backend/ build
+	@${MAKE} -C backend/ compile
 
 .PHONY: test
 test:
