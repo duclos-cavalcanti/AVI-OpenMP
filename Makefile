@@ -39,6 +39,11 @@ pack: clean
 	@zip -r archive.zip ../${FOLDER}
 	@zip -d archive.zip *.git/* *.git
 
+.PHONY: deliver
+deliver: pack
+	@echo -e '\n** PREPARING PROJECT FOR DELIVERY'
+	@zip -d archive.zip *data_*/ 
+
 .PHONY: send
 send:
 	@echo -e '\n** SENDING PROJECT'
