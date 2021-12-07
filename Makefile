@@ -30,7 +30,7 @@ compile:
 .PHONY: test
 test:
 	@echo -e '\n** TESTING PROJECT'
-	@python -m pytest -v tests/
+	@python3 -m pytest -v tests/
 
 .PHONY: pack
 pack: clean
