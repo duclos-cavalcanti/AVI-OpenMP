@@ -25,7 +25,7 @@ clean:
 
 .PHONY: build
 build: clean
-	@echo -e '\n** BUILDING BACKEND'
+	@echo -e '\n** COMPILING BACKEND'
 	cd build/ && cmake -DCMAKE_BUILD_TYPE=Release ..
 	@echo -e '\n** compiling backend...'
 	@$(MAKE) -C build/
