@@ -5,7 +5,7 @@
 void asyncValueIteration(Eigen::Map<Eigen::VectorXf> V, Eigen::Map<Eigen::VectorXi> PI, Eigen::Map<SparseMat> probabilities, const unsigned int n_stars, const unsigned int nS, const unsigned int nA);
 inline void getStateCost(float& cost, int& state, int& control, const unsigned int& nr_stars);
 inline void countActions(int& actions, const int nr_actions, SparseMat middle_rows);
-Eigen::VectorXf getActionValues(Eigen::Ref<SparseMat> probabilities, Eigen::Ref<Eigen::Map<Eigen::VectorXf>> values, int current_state, const unsigned int& nr_actions, const unsigned int& nr_stars, const float& alpha);
+inline Eigen::VectorXf getActionValues(Eigen::Ref<SparseMat> probabilities, Eigen::Ref<Eigen::Map<Eigen::VectorXf>> values, int current_state, const unsigned int& nr_actions, const unsigned int& nr_stars, const float& alpha);
 
 void asyncValueIterationWrapper(float* val_arr, int* policy_arr, float* values, 
                                 int* row_indices, int* rowptr, 
@@ -51,7 +51,7 @@ void asyncValueIteration(Eigen::Map<Eigen::VectorXf> values,
     } while (delta >= tolerance);
 }
 
-Eigen::VectorXf getActionValues(Eigen::Ref<SparseMat> probabilities, 
+inline Eigen::VectorXf getActionValues(Eigen::Ref<SparseMat> probabilities, 
                                 Eigen::Ref<Eigen::Map<Eigen::VectorXf>> values, 
                                 int current_state, 
                                 const unsigned int& nr_actions, 
