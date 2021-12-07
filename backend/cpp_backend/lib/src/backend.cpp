@@ -35,7 +35,7 @@ void asyncValueIteration(Eigen::Map<Eigen::VectorXf> values,
 
     do {
       delta = 0;
-      #pragma omp parallel for num_threads(10)
+      #pragma omp parallel for
       for (unsigned int current_state = 0; current_state < nr_states; current_state++) {
         Eigen::VectorXf action_values = getActionValues(probabilities, values, current_state, nr_actions, nr_stars, alpha);
 
@@ -104,7 +104,7 @@ inline void getStateCost(float& cost, int& state, int& control, const unsigned i
   }
 
 inline void countActions(int& actions, const int nr_actions, SparseMat state_probs) {
-  #pragma omp parallel for num_threads(10)
+  #pragma omp parallel for
   for (unsigned int i = 0; i < nr_actions; i++) {
       if (state_probs.row(i).sum() > 0) // val > 0, action exists
           actions += 1;
