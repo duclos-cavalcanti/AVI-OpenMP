@@ -13,7 +13,7 @@ def compile_interface(verbose:bool = True) -> object:
                  libraries=['backend'],
                  library_dirs=['lib'],
                  extra_link_args=['-Wl,-rpath=$ORIGIN/lib', '-fopenmp'],
-                 extra_compile_args=['-O3', '-march=native', '-ffast-math', '-fopenmp', '-D use_openmp'],
+                 extra_compile_args=['-O3', '-ffast-math', '-fopenmp', '-D use_openmp'],
                  source_extension='.cpp')
 
   return ffi.compile(verbose=verbose)
