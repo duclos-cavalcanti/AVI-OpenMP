@@ -59,7 +59,7 @@ get:
 .PHONY: run
 run:
 	@echo -e '\n** RUNNING PROJECT'
-	@python main.py
+	@python3 main.py
 
 .PHONY: img
 img:
