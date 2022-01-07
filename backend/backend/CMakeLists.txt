@@ -16,7 +16,7 @@ find_package(LAPACK REQUIRED)   # Linear Algebra Package
 find_package(LAPACKE REQUIRED)  # Eigen has to interface with Lineare Algebra
 
 if( ${CMAKE_BINARY_DIR} STREQUAL ${PROJECT_SOURCE_DIR} )
-  Message( FATAL_ERROR "Source and build directories are the same!")
+  Message(FATAL_ERROR "Source and build directories are the same!")
 endif()
 
 set(CMAKE_CXX_FLAGS 
@@ -65,9 +65,13 @@ target_link_libraries(${BACKEND_NAME}
                       OpenMP::OpenMP_CXX
                       )
 
+# install(DIRECTORY ${CMAKE_CURRENT_LIST_DIR}/include 
+#         DESTINATION ${BACKEND_DIR}
+#         MESSAGE_NEVER FILES_MATCHING PATTERN "*"
+#         )
+
 install(TARGETS ${BACKEND_NAME}
-        LIBRARY 
-        DESTINATION ${BACKEND_DIR}/lib
+        LIBRARY DESTINATION ${BACKEND_DIR}/lib
         CONFIGURATIONS Release
         )
 
