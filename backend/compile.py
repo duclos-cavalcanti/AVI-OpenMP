@@ -9,7 +9,7 @@ def compile_interface(verbose:bool = True) -> object:
 
   ffi.set_source("cpp_interface",
                  """ #include "interface.h" """,
-                 include_dirs=['include'],
+                 include_dirs=['backend/include', 'backend/lib'],
                  libraries=['backend'],
                  library_dirs=['lib'],
                  extra_link_args=['-Wl,-rpath=$ORIGIN/lib', '-fopenmp'],

@@ -1,7 +1,7 @@
 SHELL := /bin/bash
 FILE := $(lastword $(MAKEFILE_LIST))
-CWD := $(shell pwd)
-FOLDER := $(shell basename ${CWD})
+PWD := $(shell pwd)
+FOLDER := $(shell basename ${PWD})
 
 .PHONY: all
 all:
@@ -18,45 +18,28 @@ help:
 
 .PHONY: clean
 clean:
-	@echo -e '\n** CLEANING PROJECT'
+	@echo -e '** CLEANING PROJECT'
 	@rm -rf __pycache__
-	@${MAKE} -C backend/ clean
+	@rm -rf backend/__pycache__
+	@rm -f backend/*.cpp
+	@rm -f backend/*.so
+	@rm -f backend/*.o
+	@rm -rf backend/lib
+	@rm -rf backend/include
+	@rm -rf backend/backend/build/*
 
-.PHONY: compile
-compile:
-	@echo -e "\n** COMPILING PROJECT"
-	@${MAKE} -C backend/ compile
+.PHONY: build
+build:
+	@echo -e "\n** BUILDING PROJECT"
+	@cd backend/backend/build && cmake -DCMAKE_BUILD_TYPE=Release ..
+	@${MAKE} -C backend/backend/build/
+	@${MAKE} -C backend/backend/build/ install
+	@cd backend && python3 compile.py
 
 .PHONY: test
 test:
 	@echo -e '\n** TESTING PROJECT'
-	@python3 -m pytest -v --disable-pytest-warnings tests/
-
-.PHONY: pack
-pack: clean
-	@echo -e '\n** ARCHIVING PROJECT'
-	@rm -vf archive.zip
-	@zip -r archive.zip ../${FOLDER}
-	@zip -d archive.zip *.git/* *.git *.gitignore
-
-.PHONY: deliver
-deliver: pack
-	@echo -e '\n** PREPARING PROJECT FOR DELIVERY'
-	@zip -d archive.zip *data_debug/* *data_debug
-	@zip -d archive.zip *data_small/* *data_small
-	@zip -d archive.zip *cache/* *cache
-
-.PHONY: send
-send:
-	@echo -e '\n** SENDING PROJECT'
-	@scp archive.zip ga74ped@hpc05.clients.eikon.tum.de:~/Documents
-
-.PHONY: get
-get:
-	@echo -e '\n** GETTING PLOT FROM SERVER'
-	@rm -vf plot_server.png
-	@scp ga74ped@hpc05.clients.eikon.tum.de:~/Documents/${FOLDER}/plot.png ./plot_server.png
-	@sxiv plot_server.png
+	@python3 -m pytest -v tests/
 
 .PHONY: run
 run:

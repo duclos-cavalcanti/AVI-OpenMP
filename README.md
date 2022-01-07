@@ -1,4 +1,4 @@
-# Dynamic Programming with OpenMPI
+# Asynchronous Value Iteration with OpenMPI
 
 ## Introduction
 
@@ -18,14 +18,10 @@ The `cpp_backend` is located nested in the `backend` folder.
     - `BLAS`
     - `LAPACK`
     - `LAPACKE`
-    - `OpenMPI`
+    - `OpenMP`
 
 ### Arch-based Systems
 ```sh
 sudo pacman -S cmake openmpi lapack lapacke
 pip install cffi pytest
-```
-### Debian-based Systems
-```sh
-# TODO
 ```

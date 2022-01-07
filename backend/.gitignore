@@ -1,12 +1,8 @@
-./include
-./include/*
+# cmake
+build/*
+
+# cache
+.cache/*
 
 ./lib
 ./lib/*
-
-__pycache__
-__pycache__/*
-
-*.so
-*.o
-cpp_interface.cpp
