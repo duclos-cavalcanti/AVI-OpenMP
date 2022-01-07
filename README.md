@@ -1,8 +1,10 @@
 # Asynchronous Value Iteration with OpenMPI
 
-## Introduction
-
-The `cpp_backend` is located nested in the `backend` folder.
+An example of the use of asynchronous value iteration to find an optimal path between two
+points. A backend written in `C++` is bridged with a `Python` API with help of the `CFFI`
+interface. The `Python` frontend reads the data stored as numpy arrays and passes it on to
+the `C++` wrappers which compute the trajectory. Finally with the given trajectory, an
+image is plotted of the solution.
 
 ## Targets
 - clean : cleans project
