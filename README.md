@@ -6,7 +6,7 @@ interface. The `Python` frontend reads the data stored as numpy arrays and passe
 the `C++` wrappers which compute the trajectory. Finally with the given trajectory, an
 image is plotted of the solution.
 
-The `C+` backend uses [OpenMP](https://www.openmp.org/) to enable parallel execution in the code.
+The `C++` backend uses [OpenMP](https://www.openmp.org/) to enable parallel execution in the code.
 
 
 ## Targets
